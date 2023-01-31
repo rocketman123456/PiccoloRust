@@ -6,17 +6,42 @@ edition = "2021"
 resolver = "2"
 
 [dependencies]
-winit = "0.27"
-wgpu = "0.15"
-cgmath = "0.18"
+app-surface = { git = "https://github.com/jinleili/wgpu-on-app", rev = "210542f" }
+cfg-if = "1"
 env_logger = "0.10"
-futures = "0.3"
-gfx-hal = "0.9"
-image = "0.24"
 log = "0.4"
 pollster = "0.2"
-anyhow = "1.0"
+winit = "0.27"
+wgpu = "0.14"
 
-[[bin]]
-name = "first_triangle"
-path = "engine/ch02/first_triangle.rs"
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+console_error_panic_hook = "0.1"
+console_log = "0.2"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+web-sys = { version = "0.3", features = [
+    "Document",
+    "Window",
+    "Element",
+]}
+
+[[example]]
+name = "ch01_first_window"
+path = "engine/ch01/first_window.rs"
+
+[[example]]
+name = "ch02_first_surface"
+path = "engine/ch02/first_surface.rs"
+
+[[example]]
+name = "ch03_first_pipeline"
+path = "engine/ch03/first_pipeline.rs"
+
+[profile.release]
+# lto = true # VERY slightly smaller wasm
+# opt-level = 's' # 10-30% smaller wasm compared to `opt-level = 3`
+# opt-level = 1 # very slow and big wasm. Don't do this.
+opt-level = 2 # fast and small wasm, basically same as `opt-level = 's'`
+# opt-level = 3 # unecessarily large wasm for no performance gain
+
+# debug = true # include debug symbols, useful when profiling wasm
