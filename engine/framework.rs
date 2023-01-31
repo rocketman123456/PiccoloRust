@@ -65,15 +65,15 @@ async fn create_action_instance<A: Action + 'static>(wh_ratio: Option<f32>) -> (
 
     // 计算一个默认显示高度
     let height = (if cfg!(target_arch = "wasm32") {
-        550.0
+        720.0 * window.scale_factor()
     } else {
-        600.0
-    } * window.scale_factor()) as u32;
+        720.0
+    }) as u32;
 
     let width = if let Some(ratio) = wh_ratio {
         (height as f32 * ratio) as u32
     } else {
-        height
+        1280.0 as u32
     };
     if cfg!(not(target_arch = "wasm32")) {
         window.set_inner_size(PhysicalSize::new(width, height));
