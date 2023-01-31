@@ -1,11 +1,12 @@
 [package]
 name = "piccolo_rust"
-version = "0.1.0"
+version = "0.0.1"
 authors = ["Zhang Yf"]
 edition = "2021"
 resolver = "2"
 
 [dependencies]
+winit = "0.27"
 wgpu = "0.15"
 cgmath = "0.18"
 env_logger = "0.10"
@@ -14,9 +15,8 @@ gfx-hal = "0.9"
 image = "0.24"
 log = "0.4"
 pollster = "0.2"
-winit = "0.27"
 anyhow = "1.0"
 
-[[piccolo]]
-name = "piccolo"
-path = "src/main.rs"
+[[bin]]
+name = "first_triangle"
+path = "engine/ch02/first_triangle.rs"
